@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useWindowDimensions } from 'react-native';
 
 /**
  * @param {number} id
@@ -19,8 +20,9 @@ export function getAllSquares(){
  * @returns {[number, number]}
  */
 export function getMaxSizes(){
-    const x = window.innerWidth - 40; // width - padding
-    const y = window.innerHeight - 20 - 45 - 48; // height - padding - appbar - editorbar
+    const window = useWindowDimensions();
+    const x = window.width - 40; // width - padding
+    const y = window.height - 20; // height - padding
 
     return [x,y];
 }
@@ -30,14 +32,5 @@ export function getMaxSizes(){
  */
 export function useMaxSizes(){
     const [maxSizes, setMaxSizes] = useState(getMaxSizes());
-
-    useEffect(() => {
-        const handler = () => setMaxSizes(getMaxSizes());
-
-        window.addEventListener('resize', handler);
-
-        return () => window.removeEventListener('resize', handler);
-    }, []);
-
     return maxSizes;
 }

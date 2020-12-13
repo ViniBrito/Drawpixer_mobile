@@ -1,12 +1,9 @@
 import React from 'react';
-
 import Square from './square';
 
-//import classes from '../styles/grid.module.css';
-
-import { useMaxSizes } from '../utils/dom-helpers';
+import { useMaxSizes } from './dom-helpers';
 import { useEffect, useMemo } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, useWindowDimensions } from 'react-native';
 
 export default function Matrix({ size, onSizeChange }) {
     const maxSizes = useMaxSizes();
@@ -52,7 +49,7 @@ export default function Matrix({ size, onSizeChange }) {
                 );
             }
 
-            matrix.push(<View key={x} className={classes.boardRow}>{row}</View>);
+            matrix.push(<View key={x} style={classes.boardRow}>{row}</View>);
         }
 
         return matrix;
@@ -60,3 +57,10 @@ export default function Matrix({ size, onSizeChange }) {
 
     return matrix;
 }
+
+const classes = StyleSheet.create({
+  boardRow: {
+    justifyContent: 'center',
+    display: 'flex',
+  },
+});

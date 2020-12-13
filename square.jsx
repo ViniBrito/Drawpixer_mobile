@@ -1,12 +1,12 @@
 import React from 'react';
-import classes from '../styles/grid.module.css';
 
 import { useRef, useContext, useCallback } from 'react';
 
-import { rgb2hex } from '../utils/tools';
+import { rgb2hex } from './tools';
 
 import EditorContext from './editorcontext';
-import { View, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native';
 
 export default function Square({ size, squareId }) {
     const { setClicks, setUndos, penColor } = useContext(EditorContext);
@@ -41,16 +41,51 @@ export default function Square({ size, squareId }) {
     minHeight = minWidth = height = width = size ? size : 34;
 
     return (
-        <Button testID={`square-${squareId}`} className={classes.square}
-            ref={self}
+        <Button testID={`square-${squareId}`} style={classes.square}
+            //ref={self}
+            title='sample'
             style={{
                 backgroundColor: "#ffffff",
                 height, width, minHeight, minWidth
             }}
             draggable={false}
             onPress={onMouseOver}
-            onContextMenu={onContextMenu}
+            //onContextMenu={onContextMenu}
         >
         </Button >
     );
 }
+
+const classes = StyleSheet.create({
+  basic: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  square: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#999',
+    margin: -0.5,
+    padding: 0,
+  },
+  editorGrid: {
+    justifyContent: 'center',
+    backgroundColor: '#282c34',
+    padding: 20,
+  },
+  boardRow: {
+    justifyContent: 'center',
+    display: 'flex',
+  },
+  editorSize: {
+    position: 'absolute',
+    textAlign: 'left',
+  },
+  outerEditorGrid: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+  },
+});

@@ -1,41 +1,14 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import { ColorPicker } from 'react-native-color-picker';
 import Matrix from './matrix';
 
 import EditorContext from './editorcontext';
 
 import { useState, useEffect, useCallback } from 'react';
-import { View } from 'react-native';
-
-const useStyles = makeStyles({
-    appBar: {
-        height: 45,
-        backgroundColor: '#0b1016',
-        wnativeIDth: '100vw'
-    },
-    toolbar: {
-        paddingLeft: 5,
-        minHeight: 45,
-        wnativeIDth: '100vw'
-    },
-    outerEditorGrnativeID: {
-        wnativeIDth: '100%',
-        height: '100%',
-        overflow: 'hnativeIDden'
-    },
-    editorGrnativeID: {
-        justifyContent: 'center',
-        backgroundColor: '#282c34',
-        padding: '20px',
-        paddingBottom: '0px'
-    }
-});
+import { View, StyleSheet } from 'react-native';
 
 export default function Editor(){
-    const classes = useStyles();
 
     const [penColor, setPenColor] = useState('#000000'); // Inicial - Preto
     const [pickerPos, setPickerPos] = useState(null); // Inicial - Não aparecer
@@ -72,7 +45,7 @@ export default function Editor(){
 
     const [img, setImg] = useState(null);
     const [paint, setPaint] = useState(false);
-    
+
     useEffect(() => {
         if (img){
             setSize([img.x, img.y]);
@@ -108,23 +81,27 @@ export default function Editor(){
                 preset={preset}
             />
 
-
-            <View className={classes.outerEditorGrnativeID}
-                onContextMenu={showPicker}
-            >
-
-                <View className={classes.editorGrid} align="center">
+                <View style={classes.editorGrid} align="center">
                     <View nativeID="editorGridMatrix">
                         <Matrix
                             size={size}
-                            onSizeChange={onSizeChange}
-                        />
-                        <EditorBar
-                            onPalette={showPicker}
                         />
                     </View>
                 </View>
-            </View>
         </EditorContext.Provider>
     );
 }
+
+const classes = StyleSheet.create({
+    outerEditorGrid: {
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+    },
+    editorGrid: {
+        justifyContent: 'center',
+        backgroundColor: '#282c34',
+        padding: 20,
+        paddingBottom: 0,
+    }
+});
