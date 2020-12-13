@@ -75,10 +75,10 @@ export default function Editor(){
             setSize, setPenColor, setClicks, setUndos, setImg
         }}>
             <ColorPicker
-                onClose={hidePicker}
-                callback={setPenColor}
-                pos={pickerPos}
-                preset={preset}
+                //onClose={hidePicker}
+                //callback={setPenColor}
+                //pos={pickerPos}
+                //preset={preset}
             />
 
                 <View style={classes.editorGrid} align="center">

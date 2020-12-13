@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
+import Square from './square';
 
 /**
  * @param {number} id
  * @returns {HTMLButtonElement}
  */
 export function getSquare(id){
-    return document.getElementById(`square-${id}`);
+    return <Square called={this.id}/>;
 }
 
 /**

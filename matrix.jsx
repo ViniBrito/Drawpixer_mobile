@@ -48,8 +48,8 @@ export default function Matrix({ size, onSizeChange }) {
                     />
                 );
             }
-
-            matrix.push(<View key={x} style={classes.boardRow}>{row}</View>);
+            /// Tem que dar um jeito nessa key
+            matrix.push(<View nativeID={toString(x)} style={classes.boardRow}>{row}</View>);
         }
 
         return matrix;
