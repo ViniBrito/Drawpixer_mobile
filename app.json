@@ -1,0 +1,12 @@
+{
+  "name": "Drawpixer_mobile",
+  "displayName": "Drawpixer_mobile",
+  "expo": {
+    "name": "Drawpixer_mobile",
+    "slug": "Drawpixer_mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
