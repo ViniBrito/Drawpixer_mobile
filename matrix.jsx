@@ -2,11 +2,11 @@ import React from 'react';
 
 import Square from './square';
 
-import classes from '../styles/grid.module.css';
+//import classes from '../styles/grid.module.css';
 
 import { useMaxSizes } from '../utils/dom-helpers';
-
 import { useEffect, useMemo } from 'react';
+import { View } from 'react-native';
 
 export default function Matrix({ size, onSizeChange }) {
     const maxSizes = useMaxSizes();
@@ -52,7 +52,7 @@ export default function Matrix({ size, onSizeChange }) {
                 );
             }
 
-            matrix.push(<div key={x} className={classes.boardRow}>{row}</div>);
+            matrix.push(<View key={x} className={classes.boardRow}>{row}</View>);
         }
 
         return matrix;

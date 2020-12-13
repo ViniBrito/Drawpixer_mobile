@@ -1,15 +1,9 @@
 import React from 'react';
 
-import {
-    AppBar, Toolbar, Typography
-} from '@material-ui/core'
-
 import { makeStyles } from '@material-ui/core/styles';
 
-import ColorPicker from './colorpicker';
-import LeftBar from './left-bar';
+import { ColorPicker } from 'react-native-color-picker';
 import Matrix from './matrix';
-import EditorBar from './editor-bar';
 
 import EditorContext from './editorcontext';
 
@@ -20,19 +14,19 @@ const useStyles = makeStyles({
     appBar: {
         height: 45,
         backgroundColor: '#0b1016',
-        width: '100vw'
+        wnativeIDth: '100vw'
     },
     toolbar: {
         paddingLeft: 5,
         minHeight: 45,
-        width: '100vw'
+        wnativeIDth: '100vw'
     },
-    outerEditorGrid: {
-        width: '100%',
+    outerEditorGrnativeID: {
+        wnativeIDth: '100%',
         height: '100%',
-        overflow: 'hidden'
+        overflow: 'hnativeIDden'
     },
-    editorGrid: {
+    editorGrnativeID: {
         justifyContent: 'center',
         backgroundColor: '#282c34',
         padding: '20px',
@@ -78,11 +72,7 @@ export default function Editor(){
 
     const [img, setImg] = useState(null);
     const [paint, setPaint] = useState(false);
-
-    const onSizeChange = useCallback(() => {
-        if (img) setPaint(true);
-    }, [img]);
-
+    
     useEffect(() => {
         if (img){
             setSize([img.x, img.y]);
@@ -106,31 +96,6 @@ export default function Editor(){
         }
     }, [img, paint]);
 
-    const editorSizeFormChangeHandler = useCallback(event => {
-        let { name, value } = event.target;
-
-        if (value){
-            value = Number(value);
-            if (value < 0 || value > 80) return;
-        }
-        else
-            value = '';
-
-        setSize(size =>
-            name === 'X' ?
-                [value, size[1]] :
-                [size[0], value]
-        );
-    }, []);
-
-    const cleanGrid = useCallback(e => {
-        e.preventDefault();
-        setImg({
-            x: size[0], y: size[1],
-            colors: Array(size[0]*size[1]).fill('#ffffff')
-        });
-    }, [size]);
-
     return (
         <EditorContext.Provider value={{
             size, penColor, clicks, undos,
@@ -144,26 +109,12 @@ export default function Editor(){
             />
 
 
-            <View className={classes.outerEditorGrid}
+            <View className={classes.outerEditorGrnativeID}
                 onContextMenu={showPicker}
             >
-                <AppBar position="static" className={classes.appBar}
-                    onContextMenu={e => e.stopPropagation()}
-                >
-                    <Toolbar className={classes.toolbar}>
-                        <LeftBar
-                            size={size}
-                            onSizeChange={editorSizeFormChangeHandler}
-                            onClean={cleanGrid}
-                        />
-                        <Typography variant="h6">
-                            DrawPixer
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
 
                 <View className={classes.editorGrid} align="center">
-                    <View id="editorGridMatrix">
+                    <View nativeID="editorGridMatrix">
                         <Matrix
                             size={size}
                             onSizeChange={onSizeChange}
