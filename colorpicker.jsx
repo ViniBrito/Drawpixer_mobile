@@ -1,62 +1,15 @@
 import React from 'react';
-import {
-    ClickAwayListener
-} from '@material-ui/core';
-import { SketchPicker as Picker } from 'react-color';
+import { ColorPicker as Picker } from 'react-native-color-picker';
 import { useState } from 'react';
-
-const WIDTH = 200;
-const HEIGHT = 9/16 * WIDTH + 170;
+import Slider from '@react-native-community/slider';
 
 export default function ColorPicker({ pos, callback, preset, onClose }) {
     const [color, setColor] = useState('#000000');
 
-    if (pos){
-        const maxX = window.innerWidth;
-        const maxY = window.innerHeight;
-        if (pos.x + WIDTH > maxX){
-            pos.x -= WIDTH - (maxX - pos.x) + 25;
-        }
-        if (pos.y + HEIGHT > maxY) {
-            pos.y -= HEIGHT - (maxY - pos.y) + 5;
-        }
-    }
-
-    return pos?
-        <ClickAwayListener onClickAway={onClose}>
-            <div
-                style={{
-                    position: 'absolute',
-                    left: pos.x,
-                    top: pos.y,
-                    zIndex: 2
-                }}
-                onClick={(event) => event.stopPropagation()}
-            >
-                <Picker
-                    width={WIDTH}
-                    color={color}
-                    disableAlpha={true}
-                    onChange={color => setColor(color.hex)}
-                    onChangeComplete={color => callback(color.hex)}
-                    presetColors={preset}
-                    styles={{
-                        default: {
-                            saturation: {
-                                cursor: 'crosshair'
-                            },
-                            toggles: {
-                                cursor: 'pointer'
-                            },
-                            picker: {
-                                backgroundColor: '#ffffff',
-                            },
-                            controls: {
-                                cursor: 'col-resize'
-                            }
-                        }
-                    }}
-                />
-            </div>
-        </ClickAwayListener> : null;
+    return (
+        <ColorPicker
+            onColorSelected={color => setColor(color)}
+            style={{ flex: 1 }}
+            sliderComponent={<Slider />}
+        />)
 }

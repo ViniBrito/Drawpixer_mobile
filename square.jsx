@@ -5,58 +5,61 @@ import { useRef, useContext, useCallback } from 'react';
 import { rgb2hex } from './tools';
 
 import EditorContext from './editorcontext';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native';
 
 export default function Square({ size, squareId }) {
-    const { setClicks, setUndos, penColor } = useContext(EditorContext);
+  const { setClicks, setUndos, penColor } = useContext(EditorContext);
 
-    const self = useRef();
+  const self = useRef();
 
-    const changeColor = useCallback(color =>  {
-        const button = self.current;
+  const changeColor = useCallback(color => {
+    const button = self.current;
 
-        const lastColor = rgb2hex(button.style.backgroundColor);
-        if (color !== lastColor) {
-            setClicks(clicks =>
-                [...clicks, { id: squareId, color: lastColor }]
-            );
-            setUndos([]);
-            button.style.backgroundColor = color;
-        }
-    }, [setClicks, setUndos, squareId]);
+    const lastColor = rgb2hex(button.style.backgroundColor);
+    if (color !== lastColor) {
+      setClicks(clicks =>
+        [...clicks, { id: squareId, color: lastColor }]
+      );
+      setUndos([]);
+      button.style.backgroundColor = color;
+    }
+  }, [setClicks, setUndos, squareId]);
 
-    /// Tem que dar um jeito nesses windows
-    const onMouseOver = useCallback(() => {
-        if (window.mouseDown) {
-            if (window.button === 2)
-                changeColor('#ffffff');
-            else
-                changeColor(penColor);
-        }
-    }, [penColor, changeColor]);
+  /// Tem que dar um jeito nesses windows
+  const onMouseOver = useCallback(() => {
+    if (window.mouseDown) {
+      if (window.button === 2)
+        changeColor('#ffffff');
+      else
+        changeColor(penColor);
+    }
+  }, [penColor, changeColor]);
 
-    let height, width, minHeight, minWidth;
+  let height, width, minHeight, minWidth;
 
-    minHeight = minWidth = height = width = size ? size : 34;
+  minHeight = minWidth = height = width = size ? size : 34;
 
-    return (
-        <Button testID={`square-${squareId}`} style={classes.square}
-            //ref={self}
-            title='sample'
-            style={{
-                backgroundColor: "#ffffff",
-                height, width, minHeight, minWidth
-            }}
-            draggable={false}
-            onPress={onMouseOver}
-            //onContextMenu={onContextMenu}
-        >
-        </Button >
-    );
+  return (
+    <View style={styles.cell}>
+      <TouchableOpacity
+        style={styles.button}
+        style={{
+          backgroundColor: "#ffffff",
+          height, width, minHeight, minWidth
+        }}
+        draggable={false}
+        onPress={onMouseOver}
+      />
+    </View >
+  );
 }
 
-const classes = StyleSheet.create({
+const styles = StyleSheet.create({
+  cell: {
+    flex: 1,
+    margin: 1,
+  },
   basic: {
     flex: 1,
     backgroundColor: '#fff',

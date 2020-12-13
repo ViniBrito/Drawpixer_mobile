@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ColorPicker } from 'react-native-color-picker';
+import ColorPicker from './colorpicker';
 import Matrix from './matrix';
 
 import EditorContext from './editorcontext';

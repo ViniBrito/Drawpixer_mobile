@@ -9,14 +9,14 @@ export default function Matrix({ size, onSizeChange }) {
     const maxSizes = useMaxSizes();
 
     useEffect(() => {
-        if(onSizeChange) onSizeChange();
+        if (onSizeChange) onSizeChange();
     }, [size, onSizeChange]);
 
     const dim = useMemo(() => {
         const x = 34 * size[0] - (size[0] - 1);
         const y = 34 * size[1] - (size[1] - 1);
 
-        return [x,y];
+        return [x, y];
     }, [size]);
 
     const squareSize = useMemo(() => {
@@ -43,13 +43,14 @@ export default function Matrix({ size, onSizeChange }) {
                 row.push(
                     <Square
                         key={id} value={x + y + 1}
-                        squareId={x*size[0] + y + 1}
+                        squareId={x * size[0] + y + 1}
                         size={squareSize}
                     />
                 );
             }
-            /// Tem que dar um jeito nessa key
-            matrix.push(<View nativeID={toString(x)} style={classes.boardRow}>{row}</View>);
+            matrix.push(<View style={styles.row} key={x}>
+                {row}
+            </View>);
         }
 
         return matrix;
@@ -58,9 +59,57 @@ export default function Matrix({ size, onSizeChange }) {
     return matrix;
 }
 
-const classes = StyleSheet.create({
-  boardRow: {
-    justifyContent: 'center',
-    display: 'flex',
-  },
+const styles = StyleSheet.create({
+    gridContainer: {
+        width: '80%',
+        justifyContent: 'center',
+        backgroundColor: 'lightslategray',
+        padding: 20,
+        borderRadius: 20,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    cell: {
+        flex: 1,
+        margin: 1,
+    },
+    textExpression: {
+        backgroundColor: 'white',
+        padding: 10,
+        paddingBottom: 0,
+        minHeight: 50,
+        fontSize: 22,
+        marginLeft: 5,
+        marginRight: 5,
+    },
+    textResult: {
+        backgroundColor: 'white',
+        padding: 10,
+        fontSize: 24,
+        textAlign: 'right',
+        marginRight: 5,
+        marginLeft: 5,
+        marginBottom: 10,
+    },
+    button: {
+        borderRadius: 5,
+        margin: 2,
+        padding: 10,
+        backgroundColor: 'lightgray',
+    },
+    buttonText: {
+        fontSize: 30,
+        fontWeight: '400',
+        color: 'black',
+        textAlign: 'center',
+    },
+    buttonClear: {
+        fontSize: 20,
+        fontWeight: '400',
+        color: 'black',
+        textAlign: 'center',
+    },
 });
